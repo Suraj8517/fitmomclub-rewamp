@@ -1,17 +1,3 @@
-// GetReadySection.jsx
-// Goes right AFTER <TestimonialsSection />.
-//
-// This section sits FIXED in the background (position: sticky) underneath the
-// dark testimonials. As you scroll, the testimonials slide up and away and
-// reveal it. Once it is fully revealed, the two sock bags drop in from above,
-// "GET READY." appears behind them and the order button fades in.
-//
-// Animation is driven by one GSAP ScrollTrigger timeline that writes CSS
-// variables on the stage; the CSS below turns those variables into transforms.
-//
-//   npm i gsap
-//   <GetReadySection leftSrc={whiteBag} rightSrc={blackBag} ctaHref="/shop" />
-
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -34,32 +20,41 @@ const css = `
 .gr-stage {
   --d1: 0; --d2: 0; --c: 0; --h: 0; --s1: 0; --s2: 0; --r: 0;
   /* mobile defaults */
-  --bw: min(43vw, 34svh);
-  --bt: 40%;
-  --sx: calc(23vw - var(--c) * 2.2vw);
+  --bw: min(48vw, 36svh);     /* bag width (bigger) */
+  --bt: 62%;                  /* vertical center of the bag (50% = exact center) */
+  --sx0: 27vw;                /* starting half-gap from center */
   --fs: min(19vw, 13svh);
   --ht: 19%;
 }
 @media (min-width: 1024px) {
   .gr-stage {
-    --bw: min(19.5vw, 42svh);
-    --bt: 13%;
-    --sx: calc(16vw - var(--c) * 1.4vw);
+    --bw: min(20vw, 36svh);   /* bag width (bigger) */
+    --bt: 62%;
+    --sx0: 19vw;
     --fs: min(8.2vw, 17svh);
     --ht: 15%;
   }
 }
 
-.gr-bag { position: absolute; left: 50%; top: var(--bt); width: var(--bw); will-change: transform; backface-visibility: hidden; }
+/* horizontal offset: starts at --sx0, ends at exactly half a bag width,
+   so the two bags sit side by side, centered as a pair on the page */
+.gr-stage { --sx: calc(var(--sx0) * (1 - var(--c)) + var(--bw) * 0.5 * var(--c)); }
+
+/* anchored to the vertical center (--bt shifts it: 50% = exact center) */
+.gr-bag {
+  position: absolute; left: 50%; top: var(--bt);
+  width: var(--bw);
+  will-change: transform; backface-visibility: hidden;
+}
 .gr-l {
   transform:
-    translate3d(calc(-50% - var(--sx)), calc((1 - var(--d1)) * -110svh + var(--c) * 1svh), 0)
-    rotate(calc(-2deg - (1 - var(--d1)) * 12deg));
+    translate3d(calc(-50% - var(--sx)), calc(-50% + (1 - var(--d1)) * -110svh), 0)
+    rotate(calc(-2deg * (1 - var(--c)) - (1 - var(--d1)) * 12deg));
 }
 .gr-r {
   transform:
-    translate3d(calc(-50% + var(--sx)), calc((1 - var(--d2)) * -110svh + var(--c) * 1.8svh), 0)
-    rotate(calc(2deg + (1 - var(--d2)) * 12deg));
+    translate3d(calc(-50% + var(--sx)), calc(-50% + (1 - var(--d2)) * -110svh), 0)
+    rotate(calc(2deg * (1 - var(--c)) + (1 - var(--d2)) * 12deg));
 }
 .gr-bag img { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
 
@@ -91,8 +86,8 @@ const css = `
  * scrub  : GSAP smoothing in seconds. Use `true` for an exact 1:1 scroll feel.
  */
 export default function GetReadySection({
-  leftSrc = "/socks-white.png",
-  rightSrc = "/socks-black.png",
+  leftSrc,
+  rightSrc,
   ctaHref = "#",
   ctaLabel = "Order the pair",
   eyebrow = "Season 26/27",
@@ -146,7 +141,7 @@ export default function GetReadySection({
       // headline fades in while the bags fall
       tl.fromTo(stage, { "--h": 0 }, { "--h": 1, duration: 0.5 * R }, 1);
 
-      // bags converge + button appears
+      // bags converge to the exact center + button appears
       tl.fromTo(
         stage,
         { "--c": 0 },
