@@ -9,8 +9,8 @@ import img5 from "./assets/app/app5.webp"
 import app2 from "./assets/app/app7.png"
 import screen from "./assets/screen.png"
 export const HERO_SRC = hero;           
-export const SUBJECT_SRC = subject;        // TRANSPARENT PNG cut-out of Pritika, sits over the headline
-export const APP_SRC = screen;            // FitMom Club app screenshot (aspect 540:1150)
-export const CARD_IMAGES = [img1, img2, img3, img4, img5];        // up to 5 orbiting photos
+export const SUBJECT_SRC = subject;        
+export const APP_SRC = screen;            
+export const CARD_IMAGES = [img1, img2, img3, img4, img5];        
 export const whiteBag = app1;
 export const blackBag = app2;

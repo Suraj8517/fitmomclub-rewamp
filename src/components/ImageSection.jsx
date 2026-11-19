@@ -1,21 +1,4 @@
-/**
- * TechShowcase.jsx
- * ---------------------------------------------------------------
- * A pinned, horizontally scrolling product-story section.
- *
- *   npm i gsap three
- *   (Tailwind CSS v3.4+ must already be set up in your project)
- *
- *   import TechShowcase from "./TechShowcase";
- *   <TechShowcase heroImage="/img/hero.jpg" features={[...]} />
- *
- * Panels:  hero headline  ->  feature cards  ->  closing headline
- *          ->  strip transition  ->  "impact" section (Get / Stronger / With + transparent PNG subject)
- * Extras:  Three.js dust particles (scroll-parallaxed), GSAP ScrollTrigger
- *          scrub animations, scoreboard widget with dot-matrix LED
- *          counter, ambient-motion toggle, "play" button that steps
- *          through the stops.
- */
+
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import gsap from "gsap";
@@ -24,6 +7,12 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import img from "../assets/hero111.png";
 import EdgeFade from "./EdgeFade";
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+import prental from "../assets/programs/prenatal.jpg";
+import postnatal from "../assets/programs/postnatal.png";
+import healthcondition from "../assets/programs/withhealthconditions.jpg";
+import toneup from "../assets/programs/toneup.jpg";
+import nohealth from "../assets/programs/nocondition.jpg";
+
 
 /* ------------------------------- tokens ------------------------------- */
 const C = {
@@ -65,28 +54,39 @@ const TITLE_LAYOUT = {
 
 const DEFAULT_FEATURES = [
   {
-    tag: "Sole",
-    title: "PivotGrip™",
-    body: "Zero slide inside the shoe. Plant, pivot, go — the knit locks your foot to the insole.",
-    image: "",
+    tag: "Blossom",
+    title: "Prenatal Care",
+    subtitle:"Weight Management",
+    body: "Complete prenatal wellness support with expert nutrition and fitness consultations, customised diet plans, twice-monthly reviews, WhatsApp meal tracking, 36+ live group workouts, and exclusive access to our recipe vault.",
+    image: prental,
   },
   {
-    tag: "Cushion",
-    title: "ImpactShield™",
-    body: "Double-density cushion at heel and forefoot. Every landing, all four quarters.",
-    image: "",
+    tag: "Queen",
+    title: "Postnatal Care",
+    subtitle:"Weight Management",
+    body: "Comprehensive postnatal wellness support with expert nutrition and fitness consultations, customised diet plans with monthly revisions, 41+ live postnatal & DR workout sessions, twice-monthly reviews, WhatsApp meal tracking, and exclusive recipe vault access.",
+    image: postnatal,
   },
   {
-    tag: "Ankle",
-    title: "FlexWrap™",
-    body: "Targeted compression around arch and ankle. Support you feel on the first cut.",
-    image: "",
+    tag: "Pro",
+    title: "No Health Conditions",
+    subtitle:"Weight Management",
+    body: "Personalised nutrition and fitness support with expert consultations, customised diet plans, 23+ live group workout sessions, twice-monthly diet reviews, daily WhatsApp meal tracking, and exclusive recipe vault access.",
+    image: nohealth,
   },
   {
-    tag: "Toe",
-    title: "VentZone™",
-    body: "Micro-vented knit across the top. Dry feet in the fourth quarter.",
-    image: "",
+    tag: "Elite",
+    title: "With Health Conditions",
+    subtitle:"Weight Management",
+    body: "Complete personalised fitness and nutrition coaching with expert consultations, customised diet and workout plans, 41+ live group workout sessions, twice-monthly reviews, daily WhatsApp meal tracking, and exclusive recipe vault access.",
+    image: healthcondition,
+  },
+  {
+    tag: "Tone Up",
+    title: "Fitness-Based Body Toning Program",
+    subtitle:"Body Toning",
+    body: "Personalised wellness coaching with smart nutrition guidance, exclusive 1:1 expert consultations, guided fitness training, and continuous progress monitoring.",
+    image: toneup,
   },
 ];
 
@@ -175,7 +175,7 @@ function LedDigit({ value }) {
 }
 
 function FeatureCard({ feature, index, total }) {
-  const { tag, title, body, image } = feature;
+  const { tag, title,subtitle, body, image } = feature;
   return (
     <article
       data-card
@@ -200,16 +200,16 @@ function FeatureCard({ feature, index, total }) {
           }}
         />
       )}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/75 to-black/55" />
 
       <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
         <div
           className="flex items-center justify-between border-b border-white/15 pb-2 text-[10px] uppercase tracking-[0.2em] text-white/55"
           style={{ fontFamily: MONO }}
         >
-          <span>{tag}</span>
-          <span>
-            {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+          <span className="font-bold text-teal-500">{tag}</span>
+          <span className="font-bold text-teal-500">
+            6 / 9 / 12 months
           </span>
         </div>
         <h3
@@ -218,9 +218,10 @@ function FeatureCard({ feature, index, total }) {
         >
           {title}
         </h3>
+        <span className="text-teal-500">{subtitle}</span>
         <p
           data-copy
-          className="mt-2 max-w-[28ch] text-[13px] leading-relaxed text-white/80"
+          className="mt-2 max-w-[48ch] text-[13px] leading-relaxed text-white/80"
           style={{ fontFamily: SANS }}
         >
           {body}
@@ -278,9 +279,9 @@ function Silhouette() {
 export default function TextShowcase({
   heroImage = img,
   features = DEFAULT_FEATURES,
-  heroLines = ["#1 Fitness & Wellness ", "Community for Moms "],
-  heroSub = ["A program that fits your body, ", "your goals and your life."],
-  closingLines = ["Now available", "with your", "team's branding"],
+  heroLines = ["FitMom Club ", "Plans for Every Mom."],
+  heroSub = ["Customized. Effective. Nurturing., ", "Expert-backed solutions to fit your lifestyle."],
+  closingLines = ["Everything a Mom's", "Wellness Journey", "actually needs."],
   /* two alternating tints for the exit strips; make the first one match the
      top of whatever section follows so the hand-off is seamless */
   stripColors = ["#15211F", "#121C19"],
@@ -799,6 +800,7 @@ export default function TextShowcase({
                   className="h-full w-full object-cover object-center"
                   draggable={false}
                 />
+               
               ) : (
                 <div
                   className="h-full w-full"
