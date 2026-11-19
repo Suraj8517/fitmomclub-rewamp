@@ -90,7 +90,7 @@ export default function GetReadySection({
   rightSrc,
   ctaHref = "#",
   ctaLabel = "Order the pair",
-  eyebrow = "Season 26/27",
+  eyebrow = "Your complete fitness companion",
   runway = 160,
   scrub = 0.5,
 }) {
@@ -154,7 +154,7 @@ export default function GetReadySection({
   }, [runway, scrub]);
 
   return (
-    <section
+    <section 
       ref={sectionRef}
       className="relative z-0"
       style={{
@@ -191,7 +191,7 @@ export default function GetReadySection({
           style={{ ...font.display, color: INK }}
           className="gr-head pointer-events-none absolute inset-x-0 z-10 m-0 whitespace-nowrap text-center uppercase leading-[0.9] tracking-[-0.01em]"
         >
-          Get <span style={{ color: ACCENT }}>Ready.</span>
+          <span style={{ color: ACCENT }}>Fit Mom Club </span> App
         </h2>
 
         {/* bags */}
@@ -205,7 +205,7 @@ export default function GetReadySection({
           />
           <span className="gr-shadow" aria-hidden />
         </div>
-        <div className="gr-bag gr-r z-20">
+        <div className="gr-bag gr-r z-20 " >
           <img
             src={rightSrc}
             alt="Black crew socks in a clear pouch"
@@ -216,24 +216,7 @@ export default function GetReadySection({
           <span className="gr-shadow" aria-hidden />
         </div>
 
-        {/* order button */}
-        <div className="absolute inset-x-0 bottom-[max(5svh,calc(env(safe-area-inset-bottom,0px)+16px))] z-30 flex justify-center">
-          <a
-            href={ctaHref}
-            style={{ ...font.mono, background: INK, color: "#f4efe3" }}
-            className="gr-cta group inline-flex items-center gap-4 min-h-11 px-5 py-3 text-[11px] font-bold uppercase tracking-[0.2em] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1fb3a5] sm:px-8 sm:py-4 sm:text-xs lg:text-[0.85vw]"
-          >
-            {ctaLabel}
-            <span
-              aria-hidden
-              className="flex h-6 w-6 items-center justify-center bg-[#f4efe3] sm:h-7 sm:w-7"
-              style={{ color: ACCENT }}
-            >
-              →
-            </span>
-          </a>
-        </div>
-
+     
         {/* darkening veil: fades away as the testimonials slide off, for depth */}
         <div aria-hidden className="gr-veil pointer-events-none absolute inset-0 z-[45] bg-black" />
 

@@ -168,7 +168,7 @@ export default function TestimonialsSection() {
   const headline = "relative z-20 uppercase text-[19vw] leading-[0.84] tracking-[-0.01em] sm:text-[17vw] lg:text-[13.5vw] lg:leading-[0.8]";
 
   return (
-    <section
+    <section id="testimonials"
       ref={sectionRef}
       className="relative isolate z-10 min-h-[100svh] overflow-x-clip bg-[#14110f] py-12 text-white"
       /* clip-path (not overflow) so the fixed bg is cut to this section AND sticky children still work */

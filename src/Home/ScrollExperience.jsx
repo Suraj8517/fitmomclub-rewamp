@@ -10,6 +10,7 @@ import { HERO_SRC, SUBJECT_SRC, APP_SRC, CARD_IMAGES ,whiteBag,blackBag} from '.
 import TestimonialsSection from './testimonialSection';
 import TextShowcase from './ImageSection';
 import GetReadySection from './getReadySection';
+import Scoreboard from './components/homeMenu';
 
 /** Pinned stage: hero -> detach -> particles -> 3D phone reveal. Owns the shared scroll state. */
 export default function ScrollExperience() {
@@ -42,6 +43,7 @@ export default function ScrollExperience() {
       <TextShowcase/>
       <TestimonialsSection/>
       <GetReadySection leftSrc={whiteBag} rightSrc={blackBag} ctaHref="/shop" />
+        <Scoreboard />
     </>
   );
 }

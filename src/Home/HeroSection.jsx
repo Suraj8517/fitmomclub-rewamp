@@ -44,7 +44,7 @@ export default function HeroSection({ heroSrc, subjectSrc, children }) {
         )}
 
         <div className="absolute left-[4vw] z-3 max-w-[90vw] bottom-[calc(var(--pvh,200px)+6vh)] min-[800px]:bottom-auto min-[800px]:top-[44svh]">
-          <p className={`${clip} m-0 font-display text-[10vw] uppercase leading-[.95] bg-[linear-gradient(90deg,#9ff0e2,#2bb5a5_60%,#1b8c80)] min-[800px]:text-[clamp(40px,6vw,120px)]`}>Her story.</p>
+          <p className={`${clip} m-0 absolute right-1 -top-8 md:static font-display text-[10vw] uppercase leading-[.95] bg-[linear-gradient(90deg,#9ff0e2,#2bb5a5_60%,#1b8c80)] min-[800px]:text-[clamp(40px,6vw,120px)] `}>Her story.</p>
           <p className="mt-4 max-w-[36ch] text-[clamp(13px,1.3vw,18px)] text-warm/75 min-[800px]:max-w-[44ch] [@media(max-height:700px)_and_(max-width:799px)]:hidden">
             One woman’s journey to rediscover herself became a movement empowering women across the world.
           </p>

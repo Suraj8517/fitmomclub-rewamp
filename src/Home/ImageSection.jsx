@@ -1,4 +1,3 @@
-
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import gsap from "gsap";
@@ -56,54 +55,41 @@ const DEFAULT_FEATURES = [
   {
     tag: "Blossom",
     title: "Prenatal Care",
-    subtitle:"Weight Management",
+    subtitle: "Weight Management",
     body: "Complete prenatal wellness support with expert nutrition and fitness consultations, customised diet plans, twice-monthly reviews, WhatsApp meal tracking, 36+ live group workouts, and exclusive access to our recipe vault.",
     image: prental,
   },
   {
     tag: "Queen",
     title: "Postnatal Care",
-    subtitle:"Weight Management",
+    subtitle: "Weight Management",
     body: "Comprehensive postnatal wellness support with expert nutrition and fitness consultations, customised diet plans with monthly revisions, 41+ live postnatal & DR workout sessions, twice-monthly reviews, WhatsApp meal tracking, and exclusive recipe vault access.",
     image: postnatal,
   },
   {
     tag: "Pro",
     title: "No Health Conditions",
-    subtitle:"Weight Management",
+    subtitle: "Weight Management",
     body: "Personalised nutrition and fitness support with expert consultations, customised diet plans, 23+ live group workout sessions, twice-monthly diet reviews, daily WhatsApp meal tracking, and exclusive recipe vault access.",
     image: nohealth,
   },
   {
     tag: "Elite",
     title: "With Health Conditions",
-    subtitle:"Weight Management",
+    subtitle: "Weight Management",
     body: "Complete personalised fitness and nutrition coaching with expert consultations, customised diet and workout plans, 41+ live group workout sessions, twice-monthly reviews, daily WhatsApp meal tracking, and exclusive recipe vault access.",
     image: healthcondition,
   },
   {
     tag: "Tone Up",
     title: "Fitness-Based Body Toning Program",
-    subtitle:"Body Toning",
+    subtitle: "Body Toning",
     body: "Personalised wellness coaching with smart nutrition guidance, exclusive 1:1 expert consultations, guided fitness training, and continuous progress monitoring.",
     image: toneup,
   },
 ];
 
-/* 5x7 dot-matrix glyphs for the LED counter */
-const GLYPHS = {
-  0: "01110 10001 10011 10101 11001 10001 01110",
-  1: "00100 01100 00100 00100 00100 00100 01110",
-  2: "01110 10001 00001 00010 00100 01000 11111",
-  3: "11110 00001 00001 01110 00001 00001 11110",
-  4: "00010 00110 01010 10010 11111 00010 00010",
-  5: "11111 10000 11110 00001 00001 10001 01110",
-  6: "00110 01000 10000 11110 10001 10001 01110",
-  7: "11111 00001 00010 00100 01000 01000 01000",
-  8: "01110 10001 10001 01110 10001 10001 01110",
-  9: "01110 10001 10001 01111 00001 00010 01100",
-};
-
+/* values the scroll code uses to drive the global Scoreboard */
 const TICKS = 28;
 const COUNT_FROM = 22;
 const COUNT_TO = 10;
@@ -150,32 +136,8 @@ const wipeStyle = {
 
 /* ------------------------------ sub-parts ------------------------------ */
 
-function LedDigit({ value }) {
-  const rows = GLYPHS[value].split(" ");
-  return (
-    <div
-      className="grid grid-cols-5 gap-[2px] rounded-[2px] bg-white/[0.03] p-[3px]"
-      aria-hidden="true"
-    >
-      {rows.flatMap((row, r) =>
-        row.split("").map((bit, c) => (
-          <span
-            key={`${r}-${c}`}
-            className="h-[3px] w-[3px] rounded-[0.5px]"
-            style={
-              bit === "1"
-                ? { background: C.teal, boxShadow: `0 0 5px ${C.teal}` }
-                : { background: "rgba(43,181,165,0.12)" }
-            }
-          />
-        ))
-      )}
-    </div>
-  );
-}
-
 function FeatureCard({ feature, index, total }) {
-  const { tag, title,subtitle, body, image } = feature;
+  const { tag, title, subtitle, body, image } = feature;
   return (
     <article
       data-card
@@ -312,8 +274,8 @@ export default function TextShowcase({
   const hiddenRef = useRef(false); // true once the first section is fully covered
   const ambientRef = useRef(true);
   const barsRef = useRef([]);
+  const lastUiRef = useRef(""); // de-dupes scoreboard events
 
-  const [ui, setUi] = useState({ tick: 0, count: COUNT_FROM, panel: 0 });
   const [ambient, setAmbient] = useState(true);
 
   /* load fonts once */
@@ -366,16 +328,20 @@ export default function TextShowcase({
           const swapAt = reduce ? dist() : dist() + extra() * (EXIT.swap / EXIT.total);
           if (s > swapAt) panel = panels.length; // the revealed section
           hiddenRef.current = s > swapAt;
+
+          /* send the numbers to the global <Scoreboard /> */
           const nextUi = {
             tick: Math.round(p * TICKS),
             count: Math.round(gsap.utils.mapRange(0, 1, COUNT_FROM, COUNT_TO, p)),
             panel,
+            label: labels[panel] ?? labels[0],
+            total: labels.length,
           };
-          setUi((prev) =>
-            prev.tick === nextUi.tick && prev.count === nextUi.count && prev.panel === nextUi.panel
-              ? prev
-              : nextUi
-          );
+          const key = `${nextUi.tick}|${nextUi.count}|${nextUi.panel}`;
+          if (key !== lastUiRef.current) {
+            lastUiRef.current = key;
+            window.dispatchEvent(new CustomEvent("scoreboard:update", { detail: nextUi }));
+          }
         },
       });
       stRef.current = pinTrigger;
@@ -767,7 +733,12 @@ export default function TextShowcase({
     });
   };
 
-  const label = labels[ui.panel] ?? labels[0];
+  /* the global <Scoreboard /> play button asks this section to step forward */
+  useEffect(() => {
+    const handler = () => goNext();
+    window.addEventListener("scoreboard:next", handler);
+    return () => window.removeEventListener("scoreboard:next", handler);
+  }, []);
 
   const lineBase =
     "block whitespace-nowrap uppercase leading-[0.92] tracking-[-0.01em] will-change-transform";
@@ -776,6 +747,7 @@ export default function TextShowcase({
 
   return (
     <section
+    id="programs"
       ref={sectionRef}
       aria-label="Product technology"
       className="relative w-full text-[#f3eee0]"
@@ -800,7 +772,6 @@ export default function TextShowcase({
                   className="h-full w-full object-cover object-center"
                   draggable={false}
                 />
-               
               ) : (
                 <div
                   className="h-full w-full"
@@ -1044,57 +1015,7 @@ export default function TextShowcase({
           </span>
         </button>
 
-        {/* Scoreboard widget (bottom-right) */}
-        <div
-          className="absolute bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-4 z-30 w-[calc(100vw-5.25rem)] max-w-[21rem] border border-white/15 bg-[#0d0b0a]/80 px-3 pb-2 pt-3 backdrop-blur sm:bottom-6 sm:right-6 sm:w-[min(21rem,calc(100vw-2.5rem))] sm:px-4"
-          role="status"
-          aria-live="off"
-        >
-          <span className="absolute -left-[3px] -top-[3px] h-[6px] w-[6px] bg-[#f3eee0]" />
-          <span className="absolute -bottom-[3px] -right-[3px] h-[6px] w-[6px] bg-[#f3eee0]" />
-
-          <div className="flex items-center gap-3">
-            <div className="flex gap-[6px]">
-              <LedDigit value={Math.floor(ui.count / 10)} />
-              <LedDigit value={ui.count % 10} />
-            </div>
-
-            <div className="min-w-0 flex-1" style={{ fontFamily: MONO }}>
-              <div className="truncate text-[11px] font-bold uppercase tracking-[0.18em] text-[#f3eee0]/90">
-                {label}
-              </div>
-              <div className="mt-1 text-[11px] tracking-[0.14em] text-white/40">
-                {String(ui.panel + 1).padStart(2, "0")} / {String(labels.length).padStart(2, "0")}
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={goNext}
-              aria-label="Go to next stop"
-              className="grid h-10 w-10 place-items-center border-l border-white/15 pl-1 transition-colors hover:text-[#7fe0d2] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7fe0d2]"
-              style={{ color: C.teal }}
-            >
-              <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
-                <path d="M2 1l9 5-9 5z" fill="currentColor" />
-              </svg>
-            </button>
-          </div>
-
-          {/* tick ruler: progress through the section */}
-          <div className="mt-2 flex h-3 items-end justify-between" aria-hidden="true">
-            {Array.from({ length: TICKS }).map((_, i) => (
-              <span
-                key={i}
-                className="w-px transition-colors duration-200"
-                style={{
-                  height: i % 4 === 0 ? 10 : 6,
-                  background: i <= ui.tick ? C.cream : "rgba(255,255,255,0.18)",
-                }}
-              />
-            ))}
-          </div>
-        </div>
+        {/* Scoreboard moved out: render <Scoreboard /> once in App.jsx */}
       </div>
     </section>
   );

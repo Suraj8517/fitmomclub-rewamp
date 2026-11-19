@@ -17,15 +17,7 @@ export default function FinalReveal() {
         </div>
       </div>
 
-      <div className="js-hud hud absolute right-4 top-[calc(max(22px,3vh)+60px)] z-10 flex min-w-[158px] items-center gap-2 border border-warm/25 px-3 pb-5 pt-2.5 opacity-0 min-[800px]:bottom-[max(22px,3vh)] min-[800px]:right-[5vw] min-[800px]:top-auto min-[800px]:min-w-[250px] min-[800px]:gap-4 min-[800px]:px-5 min-[800px]:pb-6 min-[800px]:pt-3.5">
-        <b className="js-hn font-display text-3xl leading-none min-[800px]:text-5xl tracking-[.08em] text-teal">01</b>
-        <div>
-          <span className="js-ht block text-[11px] tracking-[.16em] min-[800px]:text-[13px] min-[800px]:tracking-[.2em]">Strength</span>
-          <small className="js-hp block text-xs tracking-[.2em] opacity-60">01 / 05</small>
-        </div>
-        <Play size={14} className="ml-auto fill-teal text-teal max-[799px]:hidden" />
-        <i className="js-hb hud-ticks" />
-      </div>
+    
     </>
   );
 }
