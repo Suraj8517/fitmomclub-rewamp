@@ -11,7 +11,7 @@ import postnatal from "../assets/programs/postnatal.png";
 import healthcondition from "../assets/programs/withhealthconditions.jpg";
 import toneup from "../assets/programs/toneup.jpg";
 import nohealth from "../assets/programs/nocondition.jpg";
-
+import BookingButton from "./components/bookingButton"
 
 /* ------------------------------- tokens ------------------------------- */
 const C = {
@@ -183,7 +183,9 @@ function FeatureCard({ feature, index, total }) {
         >
           {body}
         </p>
+        <BookingButton />
       </div>
+      
     </article>
   );
 }
