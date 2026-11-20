@@ -31,11 +31,7 @@ const FONT_HREF =
 /* Vertical offsets (px) so the cards sit staggered, like the reference */
 const CARD_OFFSETS = [-50, 90, -30, 80];
 
-/* Per-line layout for the "Get / Stronger / With" stack.
-   left/top: position of each line (vw / svh).
-   size: font-size (vw).
-   dx/dy: parallax travel during the grow phase (vw / svh). Different values
-   per line give the depth effect; negative dx moves left, positive moves right. */
+
 const TITLE_LAYOUT = {
   get: {
     desktop: { left: "5vw", top: "7svh", size: "2.4vw", dx: "2vw", dy: "1svh" },
@@ -151,7 +147,6 @@ function FeatureCard({ feature, index, total }) {
           draggable={false}
         />
       ) : (
-        /* knit-texture placeholder until real photography is supplied */
         <div
           className="absolute inset-0"
           style={{
@@ -896,8 +891,7 @@ export default function TextShowcase({
             <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/40 to-transparent" />
           </div>
 
-          {/* title lines sit BEHIND the subject; each one is positioned and animated on its own.
-              Edit TITLE_LAYOUT (top of file) to move them or change their parallax. */}
+        
           {[
             { k: "get", text: preTitle, color: C.cream, tracking: "0.18em" },
             { k: "main", text: impactTitle, color: C.teal, tracking: "0" },
@@ -951,8 +945,7 @@ export default function TextShowcase({
               )}
             </div>
           </div>
-          {/* vertical badge: outside the subject so its zoom can't move it.
-              Rests at left 72.9% / top 47.6%, 84% of the screen height tall. */}
+      
           <span
             data-badge
             className="absolute left-[72.9%] top-[47.6%] z-[3] whitespace-nowrap text-[15svh] font-normal uppercase leading-none tracking-[0.02em] will-change-[transform,opacity] max-md:left-[90%] max-md:top-[50%] max-md:text-[10svh]"
@@ -995,7 +988,7 @@ export default function TextShowcase({
           ))}
         </div>
 
-        {/* Ambient-motion toggle (bottom-left) */}
+        {/* Ambient-motion toggle (bottom-left) 
         <button
           type="button"
           onClick={() => setAmbient((v) => !v)}
@@ -1014,8 +1007,7 @@ export default function TextShowcase({
             ))}
           </span>
         </button>
-
-        {/* Scoreboard moved out: render <Scoreboard /> once in App.jsx */}
+*/}
       </div>
     </section>
   );

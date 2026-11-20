@@ -1,5 +1,5 @@
 /** Black gradient strips for section boundaries. Drop inside any `relative` section. */
-export default function EdgeFade({ top = false, bottom = false, color = '#080b0a', size = '22vh' }) {
+export default function EdgeFade({ top = false, bottom = false, color = '#000000', size = '22vh' }) {
   const base = 'pointer-events-none absolute inset-x-0 z-20';
   return (
     <>

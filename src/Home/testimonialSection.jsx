@@ -170,7 +170,7 @@ export default function TestimonialsSection() {
   return (
     <section id="testimonials"
       ref={sectionRef}
-      className="relative isolate z-10 min-h-[100svh] overflow-x-clip bg-[#14110f] py-12 text-white"
+      className="relative isolate z-10 min-h-[100svh] overflow-x-clip bg-[#14110f] py-32 text-white"
       /* clip-path (not overflow) so the fixed bg is cut to this section AND sticky children still work */
       style={{ clipPath: "inset(0)" }}
     >
@@ -179,11 +179,19 @@ export default function TestimonialsSection() {
       <EdgeFade top />
 
       {/* FIXED BACKGROUND */}
-      <div
-        aria-hidden
-        className="fixed inset-0 -z-10 bg-cover bg-center"
-        style={{ backgroundImage: `linear-gradient(rgba(14,11,9,.5),rgba(14,11,9,.65)), url(${BG_IMAGE})` }}
-      />
+     <div
+  aria-hidden="true"
+  className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center"
+  style={{
+    backgroundImage: `
+      linear-gradient(
+        rgba(14,11,9,.5),
+        rgba(14,11,9,.65)
+      ),
+      url(${BG_IMAGE})
+    `,
+  }}
+/>
 
       {/* section chrome */}
       <Corner className="left-4 top-4 border-l border-t sm:left-9 sm:top-9" />
