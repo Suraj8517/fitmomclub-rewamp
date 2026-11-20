@@ -23,7 +23,7 @@ const css = `
   --bw: min(48vw, 36svh);     /* bag width (bigger) */
   --bt: 62%;                  /* vertical center of the bag (50% = exact center) */
   --sx0: 27vw;                /* starting half-gap from center */
-  --fs: min(19vw, 13svh);
+  --fs: min(15vw, 7svh);
   --ht: 19%;
 }
 @media (min-width: 1024px) {
@@ -189,9 +189,9 @@ export default function GetReadySection({
 
         <h2
           style={{ ...font.display, color: INK }}
-          className="gr-head pointer-events-none absolute inset-x-0 z-10 m-0 whitespace-nowrap text-center uppercase leading-[0.9] tracking-[-0.01em]"
+          className="gr-head pointer-events-none absolute inset-x-0 z-10 m-0 whitespace-nowrap text-center uppercase leading-[0.9] tracking-[-0.01em] "
         >
-          <span style={{ color: ACCENT }}>Fit Mom Club </span> App
+          <span style={{ color: ACCENT }}>FitMom Club </span> App
         </h2>
 
         {/* bags */}

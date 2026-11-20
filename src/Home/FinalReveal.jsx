@@ -3,7 +3,7 @@ import { Play } from 'lucide-react';
 export default function FinalReveal() {
   return (
     <>
-      <div className="js-world pointer-events-none absolute inset-0 z-3 overflow-hidden">
+      <div  className="js-world pointer-events-none absolute inset-0 z-3 overflow-hidden">
        
         <div className="js-floor absolute inset-x-0 bottom-0 h-[32%] opacity-0 bg-[radial-gradient(60%_100%_at_50%_100%,rgba(77,184,165,.4),transparent_70%)]" />
         <div className="js-final absolute inset-0 opacity-0">
