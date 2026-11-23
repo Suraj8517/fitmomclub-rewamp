@@ -6,13 +6,8 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import img from "../assets/hero111.png";
 import EdgeFade from "./EdgeFade";
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-import prental from "../assets/programs/prenatal.jpg";
-import postnatal from "../assets/programs/postnatal.png";
-import healthcondition from "../assets/programs/withhealthconditions.jpg";
-import toneup from "../assets/programs/toneup.jpg";
-import nohealth from "../assets/programs/nocondition.jpg";
 import BookingButton from "./components/bookingButton"
-
+import { PROGRAM_IMAGES } from "../config";
 /* ------------------------------- tokens ------------------------------- */
 const C = {
   bg: "#110f0d",
@@ -53,35 +48,35 @@ const DEFAULT_FEATURES = [
     title: "Prenatal Care",
     subtitle: "Weight Management",
     body: "Complete prenatal wellness support with expert nutrition and fitness consultations, customised diet plans, twice-monthly reviews, WhatsApp meal tracking, 36+ live group workouts, and exclusive access to our recipe vault.",
-    image: prental,
+    image: PROGRAM_IMAGES[0],
   },
   {
     tag: "Queen",
     title: "Postnatal Care",
     subtitle: "Weight Management",
     body: "Comprehensive postnatal wellness support with expert nutrition and fitness consultations, customised diet plans with monthly revisions, 41+ live postnatal & DR workout sessions, twice-monthly reviews, WhatsApp meal tracking, and exclusive recipe vault access.",
-    image: postnatal,
+    image: PROGRAM_IMAGES[1],
   },
   {
     tag: "Pro",
     title: "No Health Conditions",
     subtitle: "Weight Management",
     body: "Personalised nutrition and fitness support with expert consultations, customised diet plans, 23+ live group workout sessions, twice-monthly diet reviews, daily WhatsApp meal tracking, and exclusive recipe vault access.",
-    image: nohealth,
+    image: PROGRAM_IMAGES[4],
   },
   {
     tag: "Elite",
     title: "With Health Conditions",
     subtitle: "Weight Management",
     body: "Complete personalised fitness and nutrition coaching with expert consultations, customised diet and workout plans, 41+ live group workout sessions, twice-monthly reviews, daily WhatsApp meal tracking, and exclusive recipe vault access.",
-    image: healthcondition,
+    image: PROGRAM_IMAGES[2],
   },
   {
     tag: "Tone Up",
     title: "Fitness-Based Body Toning Program",
     subtitle: "Body Toning",
     body: "Personalised wellness coaching with smart nutrition guidance, exclusive 1:1 expert consultations, guided fitness training, and continuous progress monitoring.",
-    image: toneup,
+    image: PROGRAM_IMAGES[3],
   },
 ];
 

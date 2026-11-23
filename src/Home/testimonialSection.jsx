@@ -113,7 +113,7 @@ function VideoFrame({ item, cam, inView, muted, onEnded, loop = false, preview =
       {/* dark overlay over the video (change /40 to make it lighter or darker) */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-black/40"
+        className="pointer-events-none absolute inset-0 bg-black/20"
       />
 
       <div

@@ -4,7 +4,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const LIGHT = "#e3f4f0"; // pale teal floor
-const GRAIN = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")`;
 
 const INK = "#14110f";
 const ACCENT = "#1fb3a5"; // teal, a touch deeper than #2ec4b6 so it reads on the pale floor
@@ -158,7 +157,6 @@ export default function GetReadySection({
       ref={sectionRef}
       className="relative z-0"
       style={{
-        // first 100svh sits UNDER the testimonials (which cover it), then the stage stays fixed
         height: `calc(200svh + ${runway}svh)`,
         marginTop: "-100svh",
         pointerEvents: "none", // never block the section above
@@ -168,13 +166,11 @@ export default function GetReadySection({
 
       <div
         ref={stageRef}
-        className="gr-stage sticky top-0 h-[100svh] w-full overflow-hidden"
+        className="gr-stage sticky top-0 h-[100svh] w-full overflow-hidden bg-white"
         style={{
           pointerEvents: "auto",
-          background: `linear-gradient(to bottom, ${LIGHT} 0%, ${LIGHT} 70%, #d3e9e4 100%)`,
         }}
       >
-        {/* eyebrow (sits BEHIND the bags) */}
         <div
           className="pointer-events-none absolute inset-x-0 z-10 flex flex-col items-center text-center"
           style={{ top: "calc(var(--ht) - 4.5%)" }}
@@ -224,7 +220,6 @@ export default function GetReadySection({
         <div
           aria-hidden
           className="gr-grain pointer-events-none absolute inset-0 z-40"
-          style={{ backgroundImage: GRAIN, opacity: 0.12 }}
         />
       </div>
     </section>
