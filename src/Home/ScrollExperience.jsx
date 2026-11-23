@@ -6,13 +6,14 @@ import Phone3D from './Phone3D';
 import FinalReveal from './FinalReveal';
 import useScrollTimeline from '../hooks/useScrollTimeline';
 import { createAppArt, createPhoneArt } from '../lib/appArt';
-import { HERO_SRC, SUBJECT_SRC, APP_SRC, CARD_IMAGES ,whiteBag,blackBag} from '../config';
+import { HERO_SRC, SUBJECT_SRC, APP_SRC, CARD_IMAGES ,whiteBag,blackBag,FOOTER_SRC} from '../config';
 import TestimonialsSection from './testimonialSection';
 import TextShowcase from './ImageSection';
 import GetReadySection from './getReadySection';
 import Scoreboard from './components/homeMenu';
 import ProductDetails from './productDetails';
 import CtaSection from './ctaSection';
+import Footer from '../footer';
 
 /** Pinned stage: hero -> detach -> particles -> 3D phone reveal. Owns the shared scroll state. */
 export default function ScrollExperience() {
@@ -38,16 +39,16 @@ export default function ScrollExperience() {
         <FinalReveal />
         <Phone3D ref={phone} art={art} images={CARD_IMAGES} />
         <ParticleTransition ref={particles} art={phoneArt} />
-        {/* black seam into the next section; fades in at the very end of the pin */}
         <div className="js-end-fade pointer-events-none absolute inset-x-0 bottom-0 z-40 h-[22vh] opacity-0 bg-gradient-to-t from-[#080b0a] via-[#080b0acc] to-transparent" />
       </section>
-      {/* content below the pinned sequence loads here */}
       <TextShowcase/>
       <ProductDetails/>
       <TestimonialsSection/>
       <GetReadySection leftSrc={whiteBag} rightSrc={blackBag} ctaHref="/shop" />
       <CtaSection/>
         <Scoreboard />
+        <Footer personImage = {FOOTER_SRC} ownerName = "FitMom Club" />
+        
     </>
   );
 }

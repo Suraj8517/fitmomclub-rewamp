@@ -150,7 +150,7 @@ export default function CtaSection() {
           <p className="reveal text-sm font-medium uppercase tracking-tight text-slate-500">
             Trusted by incredible Moms
           </p>
-          <h2 className="reveal mt-3 font-serif text-4xl font-extrabold leading-[1.05] tracking-tight text-slate-950 sm:text-5xl">
+          <h2 className="reveal mt-3 font-serif text-4xl font-extrabold leading-[1.05] tracking-tight text-teal-800 sm:text-5xl">
             Not Sure Which Program is Right for You?
           </h2>
           <p className="reveal mt-5 max-w-md text-lg leading-snug text-slate-500">
@@ -210,16 +210,16 @@ export default function CtaSection() {
         </div>
 
         {/* Stats */}
-        <div className="stats grid grid-cols-1 gap-x-8 sm:grid-cols-2 lg:col-span-4 lg:grid-cols-1">
+        <div className="stats grid grid-cols-1 gap-x-8 sm:grid-cols-2 lg:col-span-4 lg:grid-cols-1 md:pl-6">
           {STATS.map((stat, i) => (
-            <div key={stat.label} className="relative py-5 lg:py-6">
-              <div className="flex items-center gap-4 lg:justify-end">
-                <div className="whitespace-nowrap font-serif text-5xl font-extrabold leading-none text-slate-950 sm:text-5xl">
+            <div key={stat.label} className="relative py-5 lg:py-6 mx-auto sm:mx-0 sm:max-w-[22rem] ">
+              <div className="flex flex-col sm:flex-row items-center gap-4 lg:justify-start">
+                <div className="whitespace-nowrap font-serif text-4xl font-extrabold leading-none text-slate-950 sm:text-6xl">
                   {stat.prefix}
                   <span ref={(el) => (nums.current[i] = el)}>0</span>
                   <span className="font-light text-teal-600">{stat.suffix}</span>
                 </div>
-                <p className="max-w-[9rem] text-lg leading-tight text-slate-500">{stat.label}</p>
+                <p className=" text-lg sm:text-xl leading-tight text-slate-500">{stat.label}</p>
               </div>
               <span className="stat-line absolute bottom-0 left-0 h-px w-full bg-teal-600/20" />
             </div>

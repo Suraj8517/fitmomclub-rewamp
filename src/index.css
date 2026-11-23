@@ -7,9 +7,12 @@
   --color-warm: #F6F7F3;
   --color-neutral: #E8EEE9;
   --color-ink: #202B27;
-  --font-display: "Anton", "Barlow Condensed", sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
-  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-display: "Anton", sans-serif;
+  --font-condensed: "Barlow Condensed", sans-serif;
+  --font-sans: "DM Sans", sans-serif;
+  --font-serif: "DM Serif Display", serif;
+  --font-inter: "Inter Tight", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 }
 
 html { background: var(--color-deep); padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); scroll-padding-top: env(safe-area-inset-top, 0px); }
