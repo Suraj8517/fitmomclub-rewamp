@@ -1,9 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-<<<<<<< HEAD
-import bg from "../assets/testbg.jpg";
-=======
 import bg from "../assets/testbg.webp";
->>>>>>> master
 import EdgeFade from "./EdgeFade";
 
 const BG_IMAGE = bg; // dark textured bg (stays fixed while you scroll)
