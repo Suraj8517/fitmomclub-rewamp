@@ -2,9 +2,9 @@ import React from "react";
 import "../css/footer.css";
 import { ACCENT, PANEL, COND, pageLinks, socialLinks } from "./constants";
 import useInView from "./useInView";
-import LinkColumn from "./LinkColumn";
-import Headline from "./Headline";
-import TopoLines from "./TopoLines";
+import LinkColumn from "./linkColumn";
+import Headline from "./headline";
+import TopoLines from "./topoLines";
 
 export default function Footer({
   personImage ,
