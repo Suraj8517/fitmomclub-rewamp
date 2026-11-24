@@ -1,6 +1,6 @@
 import React from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Silhouette from "./Silhouette";
+import Silhouette from "./silhouette";
 import { C, DISPLAY, TITLE_LAYOUT } from "./constants";
 
 /* Sits under the strips, swapped in once they cover the screen */
