@@ -6,11 +6,7 @@ const clip = 'bg-clip-text text-transparent';
 
 /** Cinematic hero: teal-graded photo, headline BEHIND the subject cut-out, light rays + dust OVER both.
  *  js-* classes are GSAP hooks used by useScrollTimeline. */
-<<<<<<< HEAD
-export default function HeroSection({ heroSrc, subjectSrc, children }) {
-=======
 export default function HeroSection({ heroSrc, heroSrcSet, subjectSrc, children }) {
->>>>>>> master
   const [calm, setCalm] = useState(false);
   const dust = useMemo(() => Array.from({ length: typeof innerWidth !== 'undefined' && innerWidth < 800 ? 26 : 56 }, () => ({
     x: Math.random() * 100, y: Math.random() * 100, s: 1 + Math.random() * 3.2,
@@ -28,11 +24,7 @@ export default function HeroSection({ heroSrc, heroSrcSet, subjectSrc, children 
       <div className="js-hero-img hero-bg absolute inset-0">
         {heroSrc && (
           <>
-<<<<<<< HEAD
-            <img src={heroSrc} alt="" className="size-full object-cover [filter:grayscale(1)_contrast(1.08)_brightness(.85)]" />
-=======
             <img src={heroSrc} srcSet={heroSrcSet} sizes="100vw" width="1920" height="1536" decoding="async" alt="" className="size-full object-cover" /> {/* grayscale/contrast/brightness are baked into the file */}
->>>>>>> master
             <div className="absolute inset-0 bg-[#1f9e92] opacity-80 mix-blend-color" />
             <div className="absolute inset-0 bg-[#06161a]/45" />
           </>
@@ -47,11 +39,7 @@ export default function HeroSection({ heroSrc, heroSrcSet, subjectSrc, children 
         </h1>
 
         {subjectSrc && (
-<<<<<<< HEAD
-          <img src={subjectSrc} alt="Pritika, founder of FitMom Club" draggable={false}
-=======
           <img src={subjectSrc} width="1200" height="1059" fetchpriority="high" decoding="async" alt="Pritika, founder of FitMom Club" draggable={false}
->>>>>>> master
             className="absolute bottom-0 right-[-14vw] z-2 h-[74svh] w-auto max-w-none object-contain object-bottom min-[800px]:right-[6vw] min-[800px]:h-[96svh]" />
         )}
 
