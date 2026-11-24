@@ -14,10 +14,6 @@ const font = {
 };
 
 const css = `
-<<<<<<< HEAD
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:wght@400;700&display=swap');
-=======
->>>>>>> master
 
 .gr-stage {
   --d1: 0; --d2: 0; --c: 0; --h: 0; --s1: 0; --s2: 0; --r: 0;

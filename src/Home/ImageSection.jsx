@@ -1,9 +1,5 @@
 import React, { useMemo, useRef } from "react";
-<<<<<<< HEAD
-import img from "../assets/hero111.png";
-=======
 import img from "../assets/hero111.webp";
->>>>>>> master
 import EdgeFade from "./EdgeFade";
 import { C, DEFAULT_FEATURES, makeZigzag } from "./TextShowcase/constants";
 import useNarrow from "./TextShowcase/useNarrow";
