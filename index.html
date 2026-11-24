@@ -1,0 +1,39 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <title>FitMom Club</title>
+
+    <!-- Fonts: ONE request for every family the site uses (footer/testimonial/showcase @imports removed). Stylesheet loads without blocking first paint. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Narrow:wght@600;700&family=Barlow+Condensed:wght@700;800&family=Caveat:wght@500&family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:ital@0;1&family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:wght@500&family=Space+Mono:wght@400;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Narrow:wght@600;700&family=Barlow+Condensed:wght@700;800&family=Caveat:wght@500&family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:ital@0;1&family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:wght@500&family=Space+Mono:wght@400;700&display=swap" />
+    </noscript>
+
+    <!-- LCP: the hero subject is injected by JS, so tell the browser about it up front -->
+    <link rel="preload" as="image" href="/src/assets/hero.webp" type="image/webp" fetchpriority="high" />
+    <link
+      rel="preload"
+      as="image"
+      href="/src/assets/bg.webp"
+      imagesrcset="/src/assets/bg-sm.webp 1000w, /src/assets/bg.webp 1920w"
+      imagesizes="100vw"
+      type="image/webp"
+    />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

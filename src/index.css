@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  --color-teal: #4DB8A5;
+  --color-teal2: #00A99D;
+  --color-deep: #101A17;
+  --color-warm: #F6F7F3;
+  --color-neutral: #E8EEE9;
+  --color-ink: #202B27;
+  --font-display: "Anton", sans-serif;
+  --font-condensed: "Barlow Condensed", sans-serif;
+  --font-sans: "DM Sans", sans-serif;
+  --font-serif: "DM Serif Display", serif;
+  --font-inter: "Inter Tight", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+html { background: var(--color-deep); padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); scroll-padding-top: env(safe-area-inset-top, 0px); }
+body { margin: 0; background: var(--color-deep); color: var(--color-warm); font-family: var(--font-sans); overflow-x: hidden; max-width: 100%; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
+/* touch: no accidental sideways rubber-banding, no double-tap zoom delay on controls */
+html { overscroll-behavior-x: none; }
+button, a { touch-action: manipulation; }
+
+/* placeholder hero: replace via HERO_SRC in src/config.js */
+
+.scroll-line { width: 1px; height: 38px; background: currentColor; opacity: .7; transform-origin: top; animation: sc 2s ease-in-out infinite; }
+@keyframes sc { 0% { transform: scaleY(.1); } 60% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+
+/* natural top spotlight: hot source + uneven rays inside a feathered wedge */
+.beam { mix-blend-mode: screen; animation: br 6s ease-in-out infinite;
+  background:
+    radial-gradient(ellipse 9% 6% at 62% 0, rgba(255,247,230,.95), rgba(150,235,215,.4) 45%, transparent 75%),
+    repeating-conic-gradient(from 178deg at 62% -3%, rgba(215,255,245,.16) 0 .7deg, rgba(215,255,245,.03) .7deg 1.7deg, rgba(215,255,245,.2) 1.7deg 2.2deg, rgba(215,255,245,.05) 2.2deg 3.6deg),
+    conic-gradient(from 178deg at 62% -3%, transparent, rgba(77,184,165,.28) 30deg, transparent 60deg);
+  -webkit-mask-image: conic-gradient(from 178deg at 62% -3%, transparent, #000 30deg, transparent 60deg), linear-gradient(180deg, #000, rgba(0,0,0,.5) 45%, transparent 92%);
+  mask-image: conic-gradient(from 178deg at 62% -3%, transparent, #000 30deg, transparent 60deg), linear-gradient(180deg, #000, rgba(0,0,0,.5) 45%, transparent 92%);
+  -webkit-mask-composite: source-in; mask-composite: intersect; }
+@keyframes br { 50% { filter: brightness(1.18); } }
+
+.hud::before, .hud::after { content: ""; position: absolute; width: 6px; height: 6px; background: #fff; }
+.hud::before { left: -3px; top: -3px; } .hud::after { right: -3px; bottom: -3px; }
+.hud-ticks { position: absolute; left: 20px; right: 20px; bottom: 8px; height: 7px; background: repeating-linear-gradient(90deg, rgba(246,247,243,.3) 0 1px, transparent 1px 8px); }
+.hud-ticks::before { content: ""; position: absolute; inset: 0; width: calc(var(--p, 0) * 100%); background: repeating-linear-gradient(90deg, var(--color-teal) 0 1px, transparent 1px 8px); }
+
+/* ---- hero: teal-graded cinematic lighting (replaces the old placeholder) ---- */
+.hero-bg { background: radial-gradient(42% 38% at 78% 24%, rgba(77,184,165,.38), transparent 66%), radial-gradient(60% 50% at 18% 72%, rgba(8,34,31,.95), transparent 70%), linear-gradient(180deg, #0b1816, #0a1311); }
+.rays { mix-blend-mode: screen; animation: ray 7s ease-in-out infinite alternate;
+  background: linear-gradient(200deg, rgba(150,240,225,.42), transparent 48%), repeating-linear-gradient(112deg, transparent 0 46px, rgba(150,240,225,.07) 46px 96px, transparent 96px 170px);
+  -webkit-mask-image: linear-gradient(200deg, #000 10%, transparent 72%); mask-image: linear-gradient(200deg, #000 10%, transparent 72%); }
+@keyframes ray { from { opacity: .6; } to { opacity: 1; } }
+.floor-glare { position: fixed; top: 60%; mix-blend-mode: screen; background: radial-gradient(ellipse 60% 9% at 55% 87%, rgba(127,224,210,.4), transparent 70%), radial-gradient(ellipse 80% 22% at 50% 100%, rgba(43,181,165,.28), transparent 70%); }
+.dust { position: absolute; border-radius: 50%; background: radial-gradient(circle, #d6fbf4, transparent 70%); animation: fl var(--d) ease-in-out infinite alternate; }
+.calm .dust, .calm .rays { animation-play-state: paused; }
+@keyframes fl { from { transform: translate(0,0); opacity: .15; } to { transform: translate(var(--dx), -40px); opacity: .95; } }
+.eq { height: 100%; transform-origin: bottom; animation: eq .9s ease-in-out infinite alternate; }
+.eq-off { animation: none; transform: scaleY(.25); }
+@keyframes eq { from { transform: scaleY(.25); } to { transform: scaleY(1); } }

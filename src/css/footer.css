@@ -1,0 +1,58 @@
+
+/* One orchestrated reveal, triggered once when the footer scrolls into view.
+   Elements only hide when JS has armed the section (.fm-armed). */
+
+/* 1. Topographic lines draw themselves */
+.fm-armed .fm-line { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.fm-in .fm-line {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 2.4s cubic-bezier(.4,.1,.2,1) calc(var(--d, 0) * 1ms);
+}
+
+/* 2. Headline words rise out of a masked line */
+.fm-word { display: inline-block; }
+.fm-armed .fm-word { transform: translateY(115%); }
+.fm-in .fm-word {
+  transform: none;
+  transition: transform 1s cubic-bezier(.2,.8,.2,1) calc(var(--d, 0) * 1ms);
+}
+
+/* 3. Person wipes up (clip-path, so it never fights centring classes) */
+.fm-armed .fm-person { opacity: 0; clip-path: inset(100% 0 0 0); }
+.fm-in .fm-person {
+  opacity: 1; clip-path: inset(0 0 0 0);
+  transition: opacity .6s ease 450ms, clip-path 1.2s cubic-bezier(.2,.8,.2,1) 450ms;
+}
+
+/* 4. Button: fade + scale (never touches translate/transform) */
+.fm-armed .fm-pop { opacity: 0; scale: .92; }
+.fm-in .fm-pop {
+  opacity: 1; scale: 1;
+  transition: opacity .6s ease calc(var(--d, 0) * 1ms), scale .7s cubic-bezier(.2,.8,.2,1) calc(var(--d, 0) * 1ms);
+}
+
+/* 5. Links + strip fade up in a stagger */
+.fm-armed .fm-up { opacity: 0; translate: 0 18px; }
+.fm-in .fm-up {
+  opacity: 1; translate: 0 0;
+  transition: opacity .7s ease calc(var(--d, 0) * 1ms), translate .8s cubic-bezier(.2,.8,.2,1) calc(var(--d, 0) * 1ms);
+}
+
+/* 6. Panel wipes open */
+.fm-armed .fm-panel { clip-path: inset(0 0 100% 0 round 22px); }
+.fm-in .fm-panel {
+  clip-path: inset(0 0 0 0 round 22px);
+  transition: clip-path 1s cubic-bezier(.6,.05,.2,1);
+}
+@media (min-width: 1024px) {
+  .fm-armed .fm-panel { clip-path: inset(0 0 100% 0 round 1.4vw); }
+  .fm-in .fm-panel { clip-path: inset(0 0 0 0 round 1.4vw); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fm-line, .fm-word, .fm-person, .fm-up, .fm-pop, .fm-panel {
+    transition: none !important; opacity: 1 !important;
+    transform: none !important; translate: none !important; scale: none !important;
+    stroke-dashoffset: 0 !important; clip-path: none !important;
+  }
+}
