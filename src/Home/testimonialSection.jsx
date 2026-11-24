@@ -101,12 +101,7 @@ function VideoFrame({ item, cam, inView, muted, onEnded, loop = false, preview =
         muted={preview ? true : muted}
         loop={preview || loop}
         playsInline
-<<<<<<< HEAD
-        preload="metadata"
-        autoPlay
-=======
         preload="none"
->>>>>>> master
         onEnded={onEnded}
         onPlay={() => setPaused(false)}
         onPause={() => setPaused(true)}
@@ -178,10 +173,6 @@ export default function TestimonialsSection() {
       /* clip-path (not overflow) so the fixed bg is cut to this section AND sticky children still work */
       style={{ clipPath: "inset(0)" }}
     >
-<<<<<<< HEAD
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@500&family=Space+Mono:wght@400;700&display=swap');`}</style>
-=======
->>>>>>> master
 
       <EdgeFade top />
 
