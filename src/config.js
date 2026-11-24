@@ -1,4 +1,4 @@
-import subject from "./assets/hero.png"
+import subject from "./assets/hero.webp"
 import hero from "./assets/bg.jpg"
 import img1 from "./assets/app/app1.webp"
 import img2 from "./assets/app/app2.webp"

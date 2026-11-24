@@ -92,15 +92,7 @@ export default function HeroSection({ heroSrc, subjectSrc, children }) {
         </button>
       </header>
 
-      <div className="js-scroll absolute bottom-[max(22px,3.5vh)] left-[4vw] z-10 flex items-center gap-4 font-mono text-[12px] uppercase tracking-[.24em]">
-        <button type="button" onClick={() => setCalm((c) => !c)} aria-pressed={calm}
-          aria-label={calm ? 'Resume ambient motion' : 'Pause ambient motion'}
-          className="grid size-[52px] place-items-center rounded-full border border-warm/15 bg-black/40 backdrop-blur">
-          <span className="flex h-4 items-end gap-[3px]" aria-hidden="true">
-            {[0, 1, 2, 3].map((i) => <i key={i} className={`eq w-[3px] bg-warm/80 ${calm ? 'eq-off' : ''}`} style={{ animationDelay: i * 0.12 + 's' }} />)}
-          </span>
-        </button>
-      </div>
+    
     </>
   );
 }

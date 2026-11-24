@@ -13,7 +13,7 @@ import GetReadySection from './getReadySection';
 import Scoreboard from './components/homeMenu';
 import ProductDetails from './productDetails';
 import CtaSection from './ctaSection';
-import Footer from '../footer';
+import Footer from '../footer/footer';
 
 /** Pinned stage: hero -> detach -> particles -> 3D phone reveal. Owns the shared scroll state. */
 export default function ScrollExperience() {
