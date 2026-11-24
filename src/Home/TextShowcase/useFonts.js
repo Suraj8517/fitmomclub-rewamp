@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useEffect } from "react";
 import { FONT_HREF } from "./constants";
 
@@ -11,3 +12,7 @@ export default function useFonts() {
     document.head.appendChild(link);
   }, []);
 }
+=======
+/* fonts are loaded once, non-blocking, from index.html */
+export default function useFonts() {}
+>>>>>>> master

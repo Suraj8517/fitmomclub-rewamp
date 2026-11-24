@@ -1,10 +1,16 @@
 import subject from "./assets/hero.webp"
+<<<<<<< HEAD
 import hero from "./assets/bg.jpg"
+=======
+import hero from "./assets/bg.webp"
+import heroSm from "./assets/bg-sm.webp"
+>>>>>>> master
 import img1 from "./assets/app/app1.webp"
 import img2 from "./assets/app/app2.webp"
 import img3 from "./assets/app/app3.webp"
 import img4 from "./assets/app/app4.webp"
 import img5 from "./assets/app/app5.webp"
+<<<<<<< HEAD
  import app1 from "./assets/app/app6.png"
 import app2 from "./assets/app/app7.png"
 import screen from "./assets/screen.png"
@@ -15,6 +21,19 @@ import toneup from "./assets/programs/toneup.jpg";
 import nohealth from "./assets/programs/nocondition.jpg";
 import footerImg from "./assets/footer/footer.png"
 export const HERO_SRC = hero;           
+=======
+ import app1 from "./assets/app/app6.webp"
+import app2 from "./assets/app/app7.webp"
+import screen from "./assets/screen.webp"
+import prental from "./assets/programs/prenatal.webp";
+import postnatal from "./assets/programs/postnatal.webp";
+import healthcondition from "./assets/programs/withhealthconditions.webp";
+import toneup from "./assets/programs/toneup.webp";
+import nohealth from "./assets/programs/nocondition.webp";
+import footerImg from "./assets/footer/footer.webp"
+export const HERO_SRC = hero;
+export const HERO_SRCSET = `${heroSm} 1000w, ${hero} 1920w`;           
+>>>>>>> master
 export const SUBJECT_SRC = subject;        
 export const APP_SRC = screen;            
 export const CARD_IMAGES = [img1, img2, img3, img4, img5];        
