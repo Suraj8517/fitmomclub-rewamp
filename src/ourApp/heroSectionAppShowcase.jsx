@@ -47,7 +47,7 @@ const HERO_M = [
   [2.6, -3.2, 0, 1.1, 0, -0.3, -0.3],
 ];
 
-const DURATION = 1.8; // seconds for hero -> carousel
+const DURATION = 2.4; // seconds for hero -> carousel
 const DURATION2 = 2.4; // seconds for carousel -> feature detail (titles hide, phone moves, copy appears)
 const SPIN_DUR = 0.9; // seconds for the spin when switching feature in the detail view
 
@@ -836,7 +836,7 @@ export default function PhoneShowcase({
           aria-hidden
           className="absolute inset-0 flex items-start justify-center pt-[7vh] select-none md:items-center md:pt-0"
         >
-          <span className="font-['Bagel_Fat_One'] text-[34vw] leading-none tracking-tight text-white sm:text-[28vw]">
+          <span className="font-['Bagel_Fat_One'] text-[34vw] leading-none tracking-tight text-white/20 sm:text-[28vw]">
             {brand}
           </span>
         </div>
