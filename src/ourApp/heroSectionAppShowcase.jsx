@@ -47,8 +47,8 @@ const HERO_M = [
   [2.6, -3.2, 0, 1.1, 0, -0.3, -0.3],
 ];
 
-const DURATION = 2.4; // seconds for hero -> carousel
-const DURATION2 = 2.4; // seconds for carousel -> feature detail (titles hide, phone moves, copy appears)
+const DURATION = 1.4; // seconds for hero -> carousel
+const DURATION2 = 1.4; // seconds for carousel -> feature detail (titles hide, phone moves, copy appears)
 const SPIN_DUR = 0.9; // seconds for the spin when switching feature in the detail view
 
 // entrance animation
@@ -804,7 +804,7 @@ export default function PhoneShowcase({
     window.scrollTo({ top: window.innerHeight * 0.6, behavior: "smooth" });
 
   return (
-    <section ref={sectionRef} className="relative h-[230vh]" style={{ background: BG_COLOR }}>
+    <section ref={sectionRef} className="relative h-[180vh]" style={{ background: BG_COLOR }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Outfit:wght@400;600;700&display=swap');
         @property --ps-c { syntax: '<color>'; inherits: true; initial-value: #14b8a6; }
         @keyframes psDriftA { from { transform: translate(0,0) scale(1); } to { transform: translate(12vw,8vh) scale(1.15); } }
