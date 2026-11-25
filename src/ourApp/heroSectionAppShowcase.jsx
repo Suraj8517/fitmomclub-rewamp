@@ -47,8 +47,8 @@ const HERO_M = [
   [2.6, -3.2, 0, 1.1, 0, -0.3, -0.3],
 ];
 
-const DURATION = 1.4; // seconds for hero -> carousel
-const DURATION2 = 1.4; // seconds for carousel -> feature detail (titles hide, phone moves, copy appears)
+const DURATION = 0.6; // seconds for hero -> carousel
+const DURATION2 = 0.5; // seconds for carousel -> feature detail (titles hide, phone moves, copy appears)
 const SPIN_DUR = 0.9; // seconds for the spin when switching feature in the detail view
 
 // entrance animation
