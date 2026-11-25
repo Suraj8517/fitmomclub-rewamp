@@ -55,6 +55,14 @@ const SPIN_DUR = 0.9; // seconds for the spin when switching feature in the deta
 const INTRO_DUR = 1.5; // seconds each phone takes to fly in
 const STAGGER = 0.12; // delay between phones
 
+// Stepped scrolling. The section is 200vh and the sticky layer is 100vh, so the page
+// stays pinned for exactly 1 viewport height of scroll. Every stop MUST sit inside that
+// range (last stop <= pinned range), otherwise pinned() turns false at the last stop and
+// scrolling back gets stuck.
+const SECTION_VH = 200;
+const SNAP = [0, 0.5, 1]; // scroll position (in viewport heights) of each stop
+const STEP_LOCK = 800; // ms a step animation locks further steps (fixed, never extended)
+
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const sm = (x, a, b) => {
   const t = clamp((x - a) / (b - a), 0, 1);
@@ -370,6 +378,7 @@ export default function PhoneShowcase({
   const tealRef = useRef(null);
   const carouselRef = useRef(null);
   const headingRef = useRef(null);
+  const goStepRef = useRef(null); // lets the CTA button use the same stepping as wheel/touch/keys
   const activeRef = useRef(2);
   const [active, setActive] = useState(2);
   const [entered, setEntered] = useState(false); // false on first load -> teal hero; true after the first scroll stop
@@ -489,58 +498,79 @@ export default function PhoneShowcase({
     // scroll progress is read on scroll/resize only, not every frame
     let scrollVh = 0; // scroll distance into the section, in viewport heights
     let step = 0, lockUntil = 0; // 0 hero, 1 carousel, 2 detail: each scroll gesture moves exactly one step
+    const LAST = SNAP.length - 1;
+    // thresholds sit midway between stops
+    const T1 = (SNAP[0] + SNAP[1]) / 2;
+    const T2 = (SNAP[1] + SNAP[2]) / 2;
     const readScroll = () => {
       const r = sectionRef.current.getBoundingClientRect();
       scrollVh = clamp(-r.top / window.innerHeight, 0, 10);
       // scrollbar / programmatic scroll: derive the step (ignored while a step is animating)
-      if (performance.now() > lockUntil) step = scrollVh > 0.95 ? 2 : scrollVh > 0.3 ? 1 : 0;
+      if (performance.now() > lockUntil) step = scrollVh > T2 ? 2 : scrollVh > T1 ? 1 : 0;
     };
     readScroll();
+
     // --- stepped scrolling: the page pins at each stop and one gesture moves exactly one stop ---
-    const SNAP = [0, 0.6, 1.3]; // scroll position (in viewport heights) of each stop
+    // pinned = the sticky layer currently fills the viewport (tolerance for subpixel rounding)
     const pinned = () => {
       const r = sectionRef.current.getBoundingClientRect();
-      return r.top <= 1 && r.bottom >= window.innerHeight - 1;
+      return r.top <= 2 && r.bottom >= window.innerHeight - 2;
     };
     const goStep = (n) => {
-      step = n;
-      lockUntil = performance.now() + 1100;
-      const top = sectionRef.current.getBoundingClientRect().top + window.scrollY + SNAP[n] * window.innerHeight;
+      step = clamp(n, 0, LAST);
+      lockUntil = performance.now() + STEP_LOCK; // fixed lock, never extended
+      const top = sectionRef.current.getBoundingClientRect().top + window.scrollY + SNAP[step] * window.innerHeight;
       window.scrollTo({ top, behavior: "auto" });
     };
-    // true = gesture consumed here; false = let the page scroll normally (before the first / after the last stop)
-    const tryStep = (dir) => {
-      if (!pinned()) return false;
-      const n = step + dir;
-      if (n < 0 || n > 2) return false;
-      const now = performance.now();
-      if (now >= lockUntil) goStep(n);
-      else lockUntil = Math.max(lockUntil, now + 150); // trackpad inertia keeps the lock until it ends
-      return true;
-    };
+    goStepRef.current = (dir) => goStep(step + dir);
+
+    // wheel: only a *new* gesture may trigger a step. Inertia tails are swallowed (so the page
+    // doesn't creep) but never extend the lock, so the next deliberate scroll always works.
+    let lastWheelT = 0, lastAbs = 0;
     const onWheel = (e) => {
-      if (Math.abs(e.deltaY) < 4) return;
-      if (tryStep(e.deltaY > 0 ? 1 : -1)) e.preventDefault();
+      const abs = Math.abs(e.deltaY);
+      if (abs < 4) return;
+      const now = performance.now();
+      const dir = e.deltaY > 0 ? 1 : -1;
+      const n = step + dir;
+      const fresh = now - lastWheelT > 120 || abs > lastAbs * 1.5 + 10;
+      lastWheelT = now;
+      lastAbs = abs;
+      if (!pinned() || n < 0 || n > LAST) return; // let the page scroll normally
+      e.preventDefault();
+      if (now >= lockUntil && fresh) goStep(n);
     };
+
     const onKey = (e) => {
       if (e.target.closest?.("button, input, textarea, select")) return;
       const down = ["ArrowDown", "PageDown", " "].includes(e.key);
       const up = ["ArrowUp", "PageUp"].includes(e.key);
-      if ((down || up) && tryStep(down ? 1 : -1)) e.preventDefault();
+      if (!down && !up) return;
+      const n = step + (down ? 1 : -1);
+      if (!pinned() || n < 0 || n > LAST) return;
+      e.preventDefault();
+      if (performance.now() >= lockUntil) goStep(n);
     };
-    let ty = 0, tx = 0;
+
+    // touch: one step per swipe (reset on touchstart)
+    let ty = 0, tx = 0, swiped = false;
     const onTS = (e) => {
       ty = e.touches[0].clientY;
       tx = e.touches[0].clientX;
+      swiped = false;
     };
     const onTM = (e) => {
       const dy = ty - e.touches[0].clientY, dx = tx - e.touches[0].clientX;
       if (Math.abs(dy) < 24 || Math.abs(dy) < Math.abs(dx)) return;
-      if (tryStep(dy > 0 ? 1 : -1)) {
-        e.preventDefault();
-        ty = e.touches[0].clientY;
+      const n = step + (dy > 0 ? 1 : -1);
+      if (!pinned() || n < 0 || n > LAST) return;
+      e.preventDefault();
+      if (!swiped && performance.now() >= lockUntil) {
+        swiped = true;
+        goStep(n);
       }
     };
+
     window.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("keydown", onKey);
     window.addEventListener("touchstart", onTS, { passive: true });
@@ -767,6 +797,7 @@ export default function PhoneShowcase({
     io.observe(sectionRef.current);
 
     return () => {
+      goStepRef.current = null;
       cancelAnimationFrame(raf);
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("scroll", readScroll);
@@ -800,11 +831,11 @@ export default function PhoneShowcase({
     if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
   };
   const go = (d) => setActive((a) => (a + d + count) % count);
-  const scrollToNext = () =>
-    window.scrollTo({ top: window.innerHeight * 0.6, behavior: "smooth" });
+  // CTA uses the same stepping as wheel/touch/keys so the step state never desyncs
+  const scrollToNext = () => goStepRef.current?.(1);
 
   return (
-    <section ref={sectionRef} className="relative h-[180vh]" style={{ background: BG_COLOR }}>
+    <section ref={sectionRef} className="relative" style={{ height: `${SECTION_VH}vh`, background: BG_COLOR }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Outfit:wght@400;600;700&display=swap');
         @property --ps-c { syntax: '<color>'; inherits: true; initial-value: #14b8a6; }
         @keyframes psDriftA { from { transform: translate(0,0) scale(1); } to { transform: translate(12vw,8vh) scale(1.15); } }
