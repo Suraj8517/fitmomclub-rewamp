@@ -135,7 +135,7 @@ function buildPhone(feature, i, renderer) {
         curveSegments: 16,
       }).center()
     ),
-    memo("bodyM", () => new THREE.MeshStandardMaterial({ color: "#16201f", metalness: 0.9, roughness: 0.28 }))
+    memo("bodyM", () => new THREE.MeshStandardMaterial({ color: "#16201f", metalness: 0.9, roughness: 0.34, envMapIntensity: 0.6 }))
   );
   group.add(body);
 
@@ -399,7 +399,7 @@ export default function PhoneShowcase({
     let dpr = Math.min(devDpr, mount.clientWidth < 768 ? 1.5 : 2);
     let slow = 1 / 60, frames = 0; // smoothed frame time -> adaptive resolution
     const renderer = new THREE.WebGLRenderer({
-      antialias: devDpr < 2, // at 2x+ the pixel density already hides jaggies
+      antialias: dpr < 2, // judged on the capped ratio: phones render at <=1.5x, so they still need AA
       alpha: true,
       powerPreference: "high-performance",
     });
@@ -835,8 +835,10 @@ export default function PhoneShowcase({
   const scrollToNext = () => goStepRef.current?.(1);
 
   return (
-    <section ref={sectionRef} className="relative" style={{ height: `${SECTION_VH}vh`, background: BG_COLOR }}>
+    <section ref={sectionRef} className="ps-section relative" style={{ height: `${SECTION_VH}vh`, background: BG_COLOR }}>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Outfit:wght@400;600;700&display=swap');
+        html, body { margin: 0; }
+        .ps-section { overflow-x: clip; }
         @property --ps-c { syntax: '<color>'; inherits: true; initial-value: #14b8a6; }
         @keyframes psDriftA { from { transform: translate(0,0) scale(1); } to { transform: translate(12vw,8vh) scale(1.15); } }
         @keyframes psDriftB { from { transform: translate(0,0) scale(1.1); } to { transform: translate(-10vw,12vh) scale(0.95); } }
