@@ -82,15 +82,7 @@ export default function HeroSection({ heroSrc, heroSrcSet, subjectSrc, children 
       {/* soft black under the nav + top border */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-9 h-[16vh] bg-gradient-to-b from-black/60 to-transparent" />
 
-      {/* chrome (stays put) */}
-      <header className="absolute inset-x-[4vw] top-[max(22px,3vh)] z-10 flex items-center justify-between">
-        <div className="flex items-center gap-2.5 whitespace-nowrap font-display text-[22px] max-[359px]:gap-2 max-[359px]:text-[18px] min-[800px]:text-[26px] font-normal tracking-[.06em]">
-          <i className="size-3.5 rounded-full bg-teal shadow-[0_0_0_4px_rgba(77,184,165,.25)]" />FitMom Club
-        </div>
-        <button type="button" className="flex items-center gap-3 whitespace-nowrap bg-warm py-1.5 pl-4 pr-1.5 font-mono text-[11px] uppercase tracking-[.16em] text-ink max-[359px]:gap-2 max-[359px]:pl-3 max-[359px]:text-[10px] max-[359px]:tracking-[.1em] min-[800px]:gap-4 min-[800px]:py-2 min-[800px]:pl-6 min-[800px]:pr-2 min-[800px]:text-[13px] min-[800px]:tracking-[.22em]">
-          Join the club <span className="grid size-8 place-items-center bg-ink text-warm min-[800px]:size-9"><ArrowRight size={16} /></span>
-        </button>
-      </header>
+    
 
     
     </>

@@ -27,7 +27,6 @@ export default function BelowFold() {
       <TestimonialsSection />
       <GetReadySection leftSrc={whiteBag} rightSrc={blackBag} ctaHref="/shop" />
       <CtaSection />
-      <Scoreboard />
       <Footer personImage={FOOTER_SRC} ownerName="FitMom Club" />
     </>
   );

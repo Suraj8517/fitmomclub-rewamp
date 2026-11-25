@@ -1,14 +1,14 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
-import HeroSection from './HeroSection';
-import AppPreview from './AppPreview';
-import ParticleTransition from './ParticleTransition';
-import Phone3D from './Phone3D';
-import FinalReveal from './FinalReveal';
+import HeroSection from '../Home/HeroSection';
+import AppPreview from '../Home/AppPreview';
+import ParticleTransition from '../Home/ParticleTransition';
+import Phone3D from '../Home/Phone3D';
+import FinalReveal from '../Home/FinalReveal';
 import useScrollTimeline from '../hooks/useScrollTimeline';
 import { createAppArt, createPhoneArt } from '../lib/appArt';
 import { HERO_SRC, HERO_SRCSET, SUBJECT_SRC, APP_SRC, CARD_IMAGES } from '../config';
 
-const loadBelowFold = () => import('./BelowFold');
+const loadBelowFold = () => import('../Home/BelowFold');
 const BelowFold = lazy(loadBelowFold);
 
 /** Pinned stage: hero -> detach -> particles -> 3D phone reveal. Owns the shared scroll state. */
