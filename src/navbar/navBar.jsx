@@ -92,7 +92,7 @@ export default function Navbar({
             open ? "opacity-0" : "opacity-100"
           }`}
         >
-          {name}
+         
         </h1>
 
         {/* Hamburger -> cross */}

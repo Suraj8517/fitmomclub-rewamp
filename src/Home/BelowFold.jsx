@@ -8,6 +8,7 @@ import ProductDetails from './productDetails';
 import CtaSection from './ctaSection';
 import Footer from '../footer/footer';
 import { whiteBag, blackBag, FOOTER_SRC } from '../config';
+import HeroSectionAppShowcase from '../ourApp/heroSectionAppShowcase';
 
 /** Everything under the pinned hero. Loaded as ONE lazy chunk (after the hero has painted) so that all
  *  ScrollTriggers register together, in document order, and the heavy code (three.js dust, GSAP sections)
@@ -27,6 +28,7 @@ export default function BelowFold() {
       <TestimonialsSection />
       <GetReadySection leftSrc={whiteBag} rightSrc={blackBag} ctaHref="/shop" />
       <CtaSection />
+      <HeroSectionAppShowcase/>
       <Footer personImage={FOOTER_SRC} ownerName="FitMom Club" />
     </>
   );
